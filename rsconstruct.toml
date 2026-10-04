@@ -6,14 +6,14 @@ reject_dot_src_dirs = true
 
 [analyzer.python]
 
-[processor.ruff]
+[processor.checker.ruff]
 src_dirs = ["scripts"]
 
 
-[processor.mypy]
+[processor.checker.mypy]
 src_dirs = ["scripts"]
 
-[processor.taplo]
+[processor.checker.taplo]
 src_files = [".rumdl.toml", "pyproject.toml", "rsconstruct.toml"]
 
 # ─── repo-specific configuration ────────────────────────────────────────────
@@ -24,7 +24,7 @@ src_files = [".rumdl.toml", "pyproject.toml", "rsconstruct.toml"]
 # link is beyond the single-file C processor, so scripts/build_except.py runs
 # the exact sequence. (The Makefile's install target was a separate `sudo
 # install` to /usr -- a deploy action, not a build.)
-[processor.explicit.except]
+[processor.explicit.generic.except]
 command = "scripts/build_except.py"
 input_globs = ["lib/*.c", "lib/*.cc", "lib/*.h", "test/*.c", "test/*.cc"]
 output_files = [
@@ -37,17 +37,17 @@ output_files = [
 ]
 
 # lint the GitHub Actions workflow files with actionlint
-[processor.actionlint]
+[processor.checker.actionlint]
 src_dirs = [".github/workflows"]
 
 # ─── markdown ────────────────────────────────────────────────────────────────
 
-[processor.rumdl]
+[processor.checker.rumdl]
 src_files = ["README.md"]
 
 # ─── c / c++ ─────────────────────────────────────────────────────────────────
 
-[processor.cppcheck]
+[processor.checker.cppcheck]
 src_dirs = ["lib", "test"]
 args = [
 	"--error-exitcode=1",
