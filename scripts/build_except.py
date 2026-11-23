@@ -25,7 +25,7 @@ def run(cmd):
 
 def build_library(compiler, source, obj, lib):
     """ Compile one source and link it into a shared library. """
-    run([compiler] + BASE_FLAGS + ["-c", source, "-o", obj])
+    run([compiler, *BASE_FLAGS, "-c", source, "-o", obj])
     run([compiler, "-shared", "-fpic", "-o", lib, obj, "-ldl"])
 
 
@@ -37,14 +37,14 @@ def main():
     # test binaries: (compiler, source, output, extra link args)
     tests = [
         ("gcc", "test/test_link.c", "test/test_link.elf",
-         LD_BASE + ["-L.", "-lexcept"]),
+         [*LD_BASE, "-L.", "-lexcept"]),
         ("g++", "test/test_linkcc.cc", "test/test_linkcc.elf",
-         LD_BASE + ["-L.", "-lexceptcc"]),
+         [*LD_BASE, "-L.", "-lexceptcc"]),
         ("gcc", "test/test_nolink.c", "test/test_nolink.elf", LD_BASE),
         ("g++", "test/test_nolinkcc.cc", "test/test_nolinkcc.elf", LD_BASE),
     ]
     for compiler, source, output, ldflags in tests:
-        run([compiler] + BASE_FLAGS + [source, "-o", output] + ldflags)
+        run([compiler, *BASE_FLAGS, source, "-o", output, *ldflags])
 
 
 if __name__ == "__main__":
