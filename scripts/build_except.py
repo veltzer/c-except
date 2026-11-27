@@ -16,20 +16,20 @@ BASE_FLAGS = ["-O2", "-fpic", "-Wall", "-Wextra", "-Werror", "-pedantic", "-g2",
 LD_BASE = ["-lpthread"]
 
 
-def run(cmd):
+def run(cmd: list[str]) -> None:
     """ Run a command, exiting the process on the first failure. """
     ret = subprocess.call(cmd)
     if ret != 0:
         sys.exit(ret)
 
 
-def build_library(compiler, source, obj, lib):
+def build_library(compiler: str, source: str, obj: str, lib: str) -> None:
     """ Compile one source and link it into a shared library. """
     run([compiler, *BASE_FLAGS, "-c", source, "-o", obj])
     run([compiler, "-shared", "-fpic", "-o", lib, obj, "-ldl"])
 
 
-def main():
+def main() -> None:
     """ main entry point """
     with tempfile.TemporaryDirectory() as objdir:
         build_library("gcc", "lib/except.c", os.path.join(objdir, "except.o"), "libexcept.so")
