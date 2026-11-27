@@ -13,7 +13,9 @@
 #define __stringify_1(x) # x
 #define __stringify(x) __stringify_1(x)
 
-#define register_name(name) p_ ## name=(typeof(p_ ## name))dlsym(RTLD_NEXT, __stringify(name));\
+// ISO C has no conversion from the object pointer dlsym(3) returns to a
+// function pointer: store it through a void**, as POSIX documents.
+#define register_name(name) *(void **)(&p_ ## name)=dlsym(RTLD_NEXT, __stringify(name));\
 	if(p_ ## name==NULL) {\
 		fprintf(stderr,"error in dlsym on symbol [%s], [%s]\n",__stringify(name),dlerror());\
 		exit(1);\

@@ -70,8 +70,10 @@ src_files = ["README.md"]
 [processor.checker.cppcheck]
 batch = true
 src_dirs = ["lib", "test"]
+dep_inputs = ["cppcheck.cfg"]
 args = [
 	"--error-exitcode=1",
+	"--library=cppcheck.cfg",
 	"--enable=warning,style,performance,portability,information,unusedFunction",
 	"--check-level=exhaustive",
 	"--inline-suppr",
