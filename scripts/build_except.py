@@ -12,7 +12,7 @@ import subprocess
 import sys
 import tempfile
 
-BASE_FLAGS = ["-O2", "-fpic", "-Wall", "-Werror", "-pedantic", "-g2", "-Ilib", "-Itest"]
+BASE_FLAGS = ["-O2", "-fpic", "-Wall", "-Wextra", "-Werror", "-pedantic", "-g2", "-Ilib", "-Itest"]
 LD_BASE = ["-lpthread"]
 
 

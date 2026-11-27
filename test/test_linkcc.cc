@@ -1,7 +1,7 @@
 #include <sys/ioctl.h> // for ioctl(2)
 #include <stdlib.h> // for malloc(3)
 
-int main(int argc,char** argv,char ** envp) {
+int main() {
 // the next pragmas remove warnings about not using the return values of the functions...
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-result"
